@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   get "/users/log_out" => "users#log_out", as: "users_log_out"
   get "/affiliates/sign_up" => "affiliates#sign_up", as: "affiliate_sign_up"
   resources :users
+
+  get "/auth/:provider/callback" => "sessions#create_from_omniauth"
 end
