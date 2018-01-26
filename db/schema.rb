@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20180126055458) do
     t.string "email"
     t.json "users_avatar"
     t.string "confirmation_token", limit: 128
-    t.string "remember_token", limit: 128, null: false
+    t.string "remember_token", limit: 128
     t.integer "role", default: 0
     t.string "password_digest"
     t.datetime "created_at", null: false
