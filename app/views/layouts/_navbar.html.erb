@@ -20,11 +20,8 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to 'Register your dobi shop', new_shop_path %></li>
-        <% if !logged_in? %>
-        <li class="nav navbar-nav navbar-right-item"><a class="modal-btn navbar-right-1 addpointercursor" data-toggle="modal" data-target="#signUpModalMain">Sign Up</a></li>
-        <li><a class="modal-btn navbar-right-1 addpointercursor" data-toggle="modal" data-target="#logInModal">Login</a></li>
-        <% else  %>
+
+        <% if logged_in? %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %> <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -36,11 +33,22 @@
             <li><a href="#">Separated link</a></li>
           </ul>
         </li>
+        <% elsif shop_logged_in? %>
+        
+
+        <li class="nav navbar-nav navbar-right-item"><%= link_to "#{current_shop.shop_name}", shop_path(current_shop.id), class: "modal-btn navbar-right-1" %></li>
+        <li class="nav navbar-nav navbar-right-item"><%= link_to 'Log out', shops_logout_path, class: "modal-btn navbar-right-1" %></li>
+         
+        <% else !logged_in? && !shop_logged_in? %>
+        <li class="nav navbar-nav navbar-right-item"><a class="modal-btn navbar-right-1 addpointercursor" data-toggle="modal" data-target="#shoplogInModal">Business Login</a></li>
+        <li class="nav navbar-nav navbar-right-item"><a class="modal-btn navbar-right-1 addpointercursor" data-toggle="modal" data-target="#signUpModalMain">Sign Up</a></li>
+        <li><a class="modal-btn navbar-right-1 addpointercursor" data-toggle="modal" data-target="#logInModal">User Login</a></li>
         <% end  %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
 
 <!-- Modal sign up main-->
 <div class="modal fade" id="signUpModalMain" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -138,7 +146,7 @@
       <div class="modal-body">
           <div class="form-group ">
            
-            <%= form_for :session, url: user_login_path do |form| %>
+            <%= form_for :session, url: users_login_path do |form| %>
               <div class="text-field form-group">
                 <%= form.text_field :email, type: 'email', placeholder: "Email Address", class: "form-control" %>
               </div>
@@ -190,3 +198,41 @@
     </div>
   </div>
 </div>
+
+<!-- shop login modal -->
+
+<div class="modal fade text-center" id="shoplogInModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3>Business Login to continue</h3>
+        
+      </div>
+      
+      <div class="modal-body">
+          <div class="form-group ">
+           
+
+            <%= form_for :session, url: shops_login_path do |form| %>
+              <div class="text-field form-group">
+                <%= form.text_field :email, type: 'email', placeholder: "Email Address", class: "form-control" %>
+              </div>
+
+              <div class="password-field form-group">
+                <%= form.password_field :password, placeholder: "Create a Password", class: "form-control" %>
+              </div>
+
+              <div class="submit-field form-group" >
+                <%= form.submit 'Log In', class: "form-control form-group-submit" %>
+              </div>
+              
+            <% end %>
+
+          </div>
+      </div>
+    </div>
+  </div> 
+</div>         
