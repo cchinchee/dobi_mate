@@ -20,6 +20,7 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to 'Register your dobi shop', new_shop_path %></li>
         <% if !logged_in? %>
         <li class="nav navbar-nav navbar-right-item"><a class="modal-btn navbar-right-1 addpointercursor" data-toggle="modal" data-target="#signUpModalMain">Sign Up</a></li>
         <li><a class="modal-btn navbar-right-1 addpointercursor" data-toggle="modal" data-target="#logInModal">Login</a></li>

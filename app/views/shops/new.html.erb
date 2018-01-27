@@ -1,0 +1,85 @@
+<%= render partial: "/layouts/navbar" %>
+
+<div class="form-container">
+
+	<div>
+		<h2 class="sub-title">Register your dobi shop HERE</h2>
+	</div>	
+<%= form_for Shop.new, url: shops_path do |form| %>
+    <div class="text-field form-group">
+        <%= form.text_field :shop_name, placeholder: 'Shop Name', class:"form-control form-text"%>
+    </div>  
+
+    <div class="text-field form-group">
+        <%= form.text_field :owner_name, placeholder: 'Shop\'s Owner Name', class:"form-control form-text" %>
+    </div>
+
+    <div class="text-field form-group">
+        <%= form.text_field :email, placeholder: 'Email' , class:"form-control form-text"%>
+    </div>
+
+    <div class="text-field form-group">
+        <%= form.text_field :phone, placeholder: 'Phone' , class:"form-control form-text"%>
+    </div>
+
+    <div class="text-field form-group">
+        <%= form.text_field :address, placeholder: 'Address' , class:"form-control form-text"%>
+    </div>
+
+    <div class="text-field form-group">
+        <%= form.text_field :postcode, placeholder: 'Postcode', class:"form-control form-text"%>
+    </div>  
+
+	    <div class="form-group">
+	      <h4><%= form.label :state %></h4>
+	      <select id="states-of-country" name="shop[state]" class="form-control form-control-small">
+	      <option id="no-state" value="" selected>Select Your State</option>
+	      <% CS.states(:my).each do |key, value| %>
+	        <option value="<%= value %>" id="<%= key %>"><%= value %></option>
+	      <% end %>
+	      </select>
+	    </div>
+	    <div class="form-group">
+	      <h4><%= form.label :city %></h4>
+	      <select id="cities-of-state" name="shop[city]" class="form-control form-control-small">
+	        <option value="" selected>Select Your City</option>
+	      </select>
+	    </div>
+	    <script type="text/javascript">
+	          $(document).on('change', '#states-of-country', function(e) {
+	            var cities_of_state, input_state, state;
+	            input_state = $(this);
+	            cities_of_state = $('#cities-of-state');
+	            state = this.options[e.target.selectedIndex].id;
+	            if (state === 'no-state') {
+	              return cities_of_state.html('');
+	            } else {
+	              $.ajax({
+	                url: '/cities/' + $(this).children(':selected').attr('id'),
+	                success: function(data) {
+	                  var opt;
+	                  opt = '<option value="" selected>Select Your City</option>';
+	                  if (data.length === 0) {
+	                  } else {
+	                    data.forEach(function(i) {
+	                      opt += '<option value="' + i + '">' + i + '</option>';
+	                    });
+	                    cities_of_state.html(opt);
+	                  }
+	                }
+	              });
+	            }
+	          });
+	        </script>
+
+    <div class="text-field form-group">
+        <%= form.password_field :password ,placeholder: 'Password' , class:"form-control form-text"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.submit "Register", class: "btn-apply" %>
+    </div> 
+
+<% end %>
+</div>
+
