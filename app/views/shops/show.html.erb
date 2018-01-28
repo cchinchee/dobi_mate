@@ -1,0 +1,29 @@
+<%= render partial: "/layouts/navbar" %>
+
+<div class="container">
+	
+<h2>Shop Name: <%= @shop.shop_name %></h2>
+
+<h4><%= @shop.full_street_address %></h4>
+<h4><%= @shop.phone %></h4>
+<h4><%= @shop.email %></h4>
+
+<% if current_shop.id == @shop.id %>
+	<%= link_to 'Edit', edit_shop_path  %>
+<% end  %>
+<br>
+<div style='width: 100%;'>
+  	<div id="map" style='width: 100%; height: 400px;'>
+  	</div>
+</div>
+</div>
+
+<script type="text/javascript">
+	handler = Gmaps.build('Google');
+	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  	markers = handler.addMarkers(<%=raw @hash.to_json %>);
+  	handler.bounds.extendWith(markers);
+  	handler.fitMapToBounds();
+  	handler.getMap().setZoom(17);
+	});
+</script>

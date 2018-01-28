@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   helper_method :shop_logged_in?
   
   # a convenient method to set the session to given user's id with the `:user_id` key
-  def sign_in(user)
+  def sign_in(shop)
     session[:shop_id] = shop.id
   end
 

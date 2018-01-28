@@ -1,0 +1,11 @@
+<%= render partial: "/layouts/navbar" %>
+<div class="form-container">
+
+	<div>
+		<h2 class="sub-title">Edit your dobi shop's details HERE</h2>
+	</div>	
+
+<%= form_for :shop, url: shop_path, method: :put do |form| %>		
+<%= render partial: "/shops/form", object: form %>
+<% end %>
+</div>

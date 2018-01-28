@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20180127065702) do
     t.string "postcode"
     t.float "latitude"
     t.float "longitude"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

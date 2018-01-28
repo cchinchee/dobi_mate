@@ -11,6 +11,7 @@ class CreateShops < ActiveRecord::Migration[5.1]
       t.string :postcode
       t.float :latitude
       t.float :longitude
+      t.string :password_digest
       t.timestamps
     end
   end
